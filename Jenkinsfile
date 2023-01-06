@@ -32,7 +32,7 @@ pipeline{
         stage('Create Image') {
             steps {
                 sh """
-                docker build --no-cache -t presentasitest:v${BUILD_NUMBER} -f .
+                docker build --no-cache -t presentasitest:v${BUILD_NUMBER} .
                 """
             }
         }
@@ -40,8 +40,9 @@ pipeline{
         stage("Vulnerability and Secret Scanner"){
             steps{
                 sh '''
-                touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportimagesecretpython.html
-                trivy image --format template --template "@html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportvulnimage.html --exit-code 0 --severity LOW,MEDIUM,HIGH,CRITICAL presentasitest:v${BUILD_NUMBER}
+                touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportvulnimage.html
+                trivy image --format template --template "@html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportvulnimage.html --exit-code 0 --severity MEDIUM,HIGH,CRITICAL presentasitest:v${BUILD_NUMBER}
+                trivy image --format json -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportvulnimage.json --exit-code 0 --severity MEDIUM,HIGH,CRITICAL presentasitest:v${BUILD_NUMBER}
                 '''
             }
         }
