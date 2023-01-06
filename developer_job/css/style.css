@@ -1,0 +1,18 @@
+.jumbotron {
+  background-color: #0ff59d;
+  color: black;
+}
+
+#projects {
+  background-color: #0ff59d;
+  color: black;
+}
+
+#footer {
+  background-color: #28a745;
+  color: white;
+}
+
+section {
+  padding-top: 6rem;
+}

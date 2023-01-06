@@ -1,0 +1,17 @@
+body {
+  background-color: #e8f8f5;
+}
+
+table.table-bordered {
+  border: 2px solid black;
+  margin-top: 20px;
+}
+table.table-bordered > thead > tr > th {
+  border: 3px solid black;
+  background-color: brown;
+  color: white;
+}
+table.table-bordered > tbody > tr > td {
+  border: 2px solid black;
+  background-color: #fdeb4b;
+}
