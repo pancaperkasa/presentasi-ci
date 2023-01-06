@@ -11,10 +11,10 @@ pipeline{
         stage("Misconfig Scanner"){
             steps{
                 sh '''
-                mkdir /var/www/html/trivy/pipeline${BUILD_NUMBER}/
-                touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportconfig.html
-                trivy config . --format template --template "@html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportconfig.html --exit-code 0 --severity MEDIUM,HIGH,CRITICAL
-                trivy config . --format json -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportconfig.json --exit-code 0 --severity MEDIUM,HIGH,CRITICAL
+                mkdir /var/www/html/trivy-ci/pipeline${BUILD_NUMBER}/
+                touch /var/www/html/trivy-ci/pipeline${BUILD_NUMBER}/reportconfig.html
+                trivy config . --format template --template "@html.tpl" -o /var/www/html/trivy-ci/pipeline${BUILD_NUMBER}/reportconfig.html --exit-code 0 --severity MEDIUM,HIGH,CRITICAL
+                trivy config . --format json -o /var/www/html/trivy-ci/pipeline${BUILD_NUMBER}/reportconfig.json --exit-code 0 --severity MEDIUM,HIGH,CRITICAL
                 '''
             }
         }
@@ -22,9 +22,9 @@ pipeline{
         stage('Filesystem Scanner') {
             steps {
                 sh """
-                touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportfs.html
-                trivy fs fs_test/  --format template --template "@html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportfs.html --exit-code 0 --severity MEDIUM,HIGH,CRITICAL
-                trivy fs fs_test/ --format json -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportconfig.json --exit-code 0 --severity MEDIUM,HIGH,CRITICAL
+                touch /var/www/html/trivy-ci/pipeline${BUILD_NUMBER}/reportfs.html
+                trivy fs fs_test/  --format template --template "@html.tpl" -o /var/www/html/trivy-ci/pipeline${BUILD_NUMBER}/reportfs.html --exit-code 0 --severity MEDIUM,HIGH,CRITICAL
+                trivy fs fs_test/ --format json -o /var/www/html/trivy-ci/pipeline${BUILD_NUMBER}/reportfs.json --exit-code 0 --severity MEDIUM,HIGH,CRITICAL
                 """
             }
         }
@@ -40,9 +40,9 @@ pipeline{
         stage("Vulnerability and Secret Scanner"){
             steps{
                 sh '''
-                touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportvulnimage.html
-                trivy image --format template --template "@html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportvulnimage.html --exit-code 0 --severity MEDIUM,HIGH,CRITICAL presentasitest:v${BUILD_NUMBER}
-                trivy image --format json -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportvulnimage.json --exit-code 0 --severity MEDIUM,HIGH,CRITICAL presentasitest:v${BUILD_NUMBER}
+                touch /var/www/html/trivy-ci/pipeline${BUILD_NUMBER}/reportvulnimage.html
+                trivy image --format template --template "@html.tpl" -o /var/www/html/trivy-ci/pipeline${BUILD_NUMBER}/reportvulnimage.html --exit-code 0 --severity MEDIUM,HIGH,CRITICAL presentasitest:v${BUILD_NUMBER}
+                trivy image --format json -o /var/www/html/trivy-ci/pipeline${BUILD_NUMBER}/reportvulnimage.json --exit-code 0 --severity MEDIUM,HIGH,CRITICAL presentasitest:v${BUILD_NUMBER}
                 '''
             }
         }
