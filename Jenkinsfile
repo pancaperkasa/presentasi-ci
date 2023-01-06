@@ -13,8 +13,8 @@ pipeline{
                 sh '''
                 mkdir /var/www/html/trivy/pipeline${BUILD_NUMBER}/
                 touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportconfig.html
-                trivy config . --format template --template "@html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportconfig.html --exit-code 0 --severity LOW,MEDIUM,HIGH,CRITICAL
-                trivy image --format json -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportconfig.json --exit-code 0 --severity LOW,MEDIUM,HIGH,CRITICAL
+                trivy config . --format template --template "@html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportconfig.html --exit-code 0 --severity MEDIUM,HIGH,CRITICAL
+                trivy config . --format json -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportconfig.json --exit-code 0 --severity MEDIUM,HIGH,CRITICAL
                 '''
             }
         }
@@ -23,8 +23,8 @@ pipeline{
             steps {
                 sh """
                 touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportfs.html
-                trivy fs fs_test/  --format template --template "@html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportfs.html --exit-code 0 --severity LOW,MEDIUM,HIGH,CRITICAL
-                trivy fs fs_test/ --format json -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportconfig.json --exit-code 0 --severity LOW,MEDIUM,HIGH,CRITICAL
+                trivy fs fs_test/  --format template --template "@html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportfs.html --exit-code 0 --severity MEDIUM,HIGH,CRITICAL
+                trivy fs fs_test/ --format json -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportconfig.json --exit-code 0 --severity MEDIUM,HIGH,CRITICAL
                 """
             }
         }
